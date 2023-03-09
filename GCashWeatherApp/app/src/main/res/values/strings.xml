@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GCashWeatherApp</string>
+    <string name="user_name">Username</string>
+    <string name="welcome">Welcome to GCash \nWeather App</string>
+    <string name="login">Login</string>
+    <string name="sign_up">SignUp</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+</resources>
