@@ -1,5 +1,29 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-plugins {
-    id 'com.android.application' version '7.4.1' apply false
-    id 'com.android.library' version '7.4.1' apply false
+//plugins {
+//    id 'com.android.application' version '7.4.1' apply false
+//    id 'com.android.library' version '7.4.1' apply false
+//}
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.4.1"
+    }
 }
+
+allprojects {
+    repositories {
+
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+

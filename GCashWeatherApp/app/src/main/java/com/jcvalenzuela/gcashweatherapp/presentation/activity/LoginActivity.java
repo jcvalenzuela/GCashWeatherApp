@@ -1,8 +1,10 @@
-package com.jcvalenzuela.gcashweatherapp;
+package com.jcvalenzuela.gcashweatherapp.presentation.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.jcvalenzuela.gcashweatherapp.R;
 
 public class LoginActivity extends AppCompatActivity {
 
