@@ -17,18 +17,16 @@ public abstract class BaseActivity <T extends ViewDataBinding, V extends BaseVie
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = initViewModel();
-        performDataBinding();
-    }
-
-    private void performDataBinding() {
         viewDataBinding = DataBindingUtil.setContentView(this, getLayoutId());
+        viewModel = initViewModel();
         viewDataBinding.setLifecycleOwner(this);
     }
 
     public abstract int getLayoutId();
 
     public abstract V initViewModel();
+
+    public V getViewModel() { return viewModel;}
 
     public T getViewDataBinding() {
         return viewDataBinding;

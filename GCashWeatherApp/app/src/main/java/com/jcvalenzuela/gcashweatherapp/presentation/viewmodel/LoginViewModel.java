@@ -3,6 +3,8 @@ package com.jcvalenzuela.gcashweatherapp.presentation.viewmodel;
 import static com.jcvalenzuela.gcashweatherapp.domain.utils.Utility.isStringEmpty;
 import static com.jcvalenzuela.gcashweatherapp.domain.utils.Utility.isValidMail;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -17,6 +19,7 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import timber.log.Timber;
 
 public class LoginViewModel extends BaseViewModel implements LoginHelper {
 
@@ -31,7 +34,7 @@ public class LoginViewModel extends BaseViewModel implements LoginHelper {
 
     private LoginDataModel loginDataModel;
 
-    private MutableLiveData<LiveLoginData> liveLoginDataMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<LiveLoginData> liveLoginDataMutableLiveData;
 
     public LiveData<LiveLoginData> getLiveLoginDataLiveData() {
         return liveLoginDataMutableLiveData;
@@ -42,6 +45,12 @@ public class LoginViewModel extends BaseViewModel implements LoginHelper {
         super(mainDataRepository);
         liveLoginDataMutableLiveData = new MutableLiveData<>();
     }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+    }
+
 
     @Override
     public void onLoginButtonClicked() {
@@ -150,7 +159,8 @@ public class LoginViewModel extends BaseViewModel implements LoginHelper {
 
         getMainDataRepository()
                 .getLocalDataRepository()
-                .insertLogin(new LoginEntity(userNameRegistration.getValue(),
+                .insertLogin(new LoginEntity(0,
+                                userNameRegistration.getValue(),
                                 emailRegistration.getValue(),
                                 passwordRegistration.getValue(),
                                 confirmPasswordRegistration.getValue()

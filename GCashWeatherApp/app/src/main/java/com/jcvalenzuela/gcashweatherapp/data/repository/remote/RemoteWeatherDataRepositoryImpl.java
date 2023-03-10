@@ -21,16 +21,16 @@ public class RemoteWeatherDataRepositoryImpl implements RemoteWeatherDataReposit
 
     @Override
     public Observable<CurrentWeatherResponse> getCurWeather(String lat, String lon, String appId) {
-        return null;
+        return apiClientService.getCurWeather(lat, lon, appId);
     }
 
     @Override
     public Observable<ForecastWeatherResponse> getForecastWeather(int id, String appId) {
-        return null;
+        return apiClientService.getForecastWeather(id, appId);
     }
 
     @Override
     public Observable<CurrentWeatherResponse> getCurWeatherByPlace(String queryPlace, String apiKey) {
-        return null;
+        return apiClientService.getCurWeatherByPlace(queryPlace, apiKey);
     }
 }

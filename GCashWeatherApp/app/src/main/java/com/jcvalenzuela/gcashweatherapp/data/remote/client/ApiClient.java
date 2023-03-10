@@ -1,4 +1,4 @@
-package com.jcvalenzuela.gcashweatherapp.data.remote;
+package com.jcvalenzuela.gcashweatherapp.data.remote.client;
 
 public class ApiClient {
     //URL

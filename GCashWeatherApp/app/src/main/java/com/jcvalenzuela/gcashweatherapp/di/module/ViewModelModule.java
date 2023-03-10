@@ -15,12 +15,16 @@ import dagger.multibindings.IntoMap;
 public abstract class ViewModelModule {
 
     @Binds
+    @IntoMap
+    @ViewModelKey(LoginViewModel.class)
+    public abstract ViewModel bindLoginViewModel(LoginViewModel loginViewModel);
+
+
+
+    @Binds
     public abstract ViewModelProvider.Factory bindViewModelFactory(
             ViewModelProviderFactory viewModelProvideFactory
     );
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(LoginViewModel.class)
-    public abstract ViewModel bindLoginViewModel(LoginViewModel loginViewModel);
+
 }

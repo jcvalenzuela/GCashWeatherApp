@@ -1,6 +1,6 @@
 package com.jcvalenzuela.gcashweatherapp.di.module;
 
-import static com.jcvalenzuela.gcashweatherapp.data.remote.ApiClient.BASE_URL_STRING;
+import static com.jcvalenzuela.gcashweatherapp.data.remote.client.ApiClient.BASE_URL_STRING;
 import static com.jcvalenzuela.gcashweatherapp.domain.utils.Utility.hasNetworkConnection;
 
 import android.app.Application;

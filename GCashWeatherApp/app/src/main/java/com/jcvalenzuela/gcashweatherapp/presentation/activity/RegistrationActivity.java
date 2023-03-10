@@ -1,16 +1,14 @@
 package com.jcvalenzuela.gcashweatherapp.presentation.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.jcvalenzuela.gcashweatherapp.R;
 import com.jcvalenzuela.gcashweatherapp.databinding.ActivityRegistrationBinding;
-import com.jcvalenzuela.gcashweatherapp.domain.LiveLoginData;
 import com.jcvalenzuela.gcashweatherapp.presentation.base.BaseActivity;
 import com.jcvalenzuela.gcashweatherapp.presentation.viewmodel.LoginViewModel;
 
@@ -31,7 +29,7 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_registration);
-        initObserver();
+        initResult();
     }
 
     @Override
@@ -59,15 +57,14 @@ public class RegistrationActivity extends BaseActivity<ActivityRegistrationBindi
         super.onResume();
     }
 
-    private void initObserver(){
-        getViewDataBinding()
-                .getLoginViewModel()
+    private void initResult() {
+        getViewModel()
                 .getLiveLoginDataLiveData()
                 .observe(this,
                         liveLoginData -> {
                             switch (liveLoginData.getLoginEnumState()) {
                                 case MISSING_FIELDS:
-                                    Timber.d("TAG: " + liveLoginData.getMessage());
+                                    Log.e("TAG: " , liveLoginData.getMessage());
                                     break;
                                 default:
                                     break;

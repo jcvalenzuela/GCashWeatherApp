@@ -18,6 +18,7 @@ import androidx.room.PrimaryKey;
 public class LoginEntity {
 
     @PrimaryKey(autoGenerate = true)
+    @NonNull
     @ColumnInfo(name = "id")
     private int id;
 
@@ -37,26 +38,11 @@ public class LoginEntity {
     @ColumnInfo(name = "re_password")
     private String confirmPassword;
 
-
-    public LoginEntity(@NonNull String user,
-                       @NonNull String email,
-                       @NonNull String password,
-                       @NonNull String confirmPassword) {
-
-        this.user = user;
-        this.email = email;
-        this.password = password;
-        this.confirmPassword = confirmPassword;
-    }
-
-
-    @Ignore
     public LoginEntity(int id,
                        @NonNull String user,
                        @NonNull String email,
                        @NonNull String password,
                        @NonNull String confirmPassword) {
-        this.id = id;
         this.user = user;
         this.email = email;
         this.password = password;
