@@ -1,17 +1,12 @@
 package com.jcvalenzuela.gcashweatherapp.presentation.base;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
-import com.jcvalenzuela.gcashweatherapp.R;
-import com.jcvalenzuela.gcashweatherapp.presentation.viewmodel.LoginViewModel;
-
 import dagger.android.support.DaggerAppCompatActivity;
-import timber.log.Timber;
 
 public abstract class BaseActivity <T extends ViewDataBinding, V extends BaseViewModel> extends DaggerAppCompatActivity {
 

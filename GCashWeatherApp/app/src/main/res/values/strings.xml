@@ -11,4 +11,16 @@
     <string name="no_account_register">Don\'t have an account? <b><u>SignUp</u></b></string>
     <string name="register">Register</string>
     <string name="alert_message">Lorem Ipsum</string>
+    <string name="temperature_celsius">0°c</string>
+    <string name="country">Philippines</string>
+    <string name="city">Lipa City, Batangas</string>
+    <string name="current_date">March 12, 2023</string>
+    <string name="sun_info">Sunrise</string>
+    <string name="cur_weather">Current Weather</string>
+    <string name="fetch_weather">Fetch Weather List</string>
+    <string name="time">Time</string>
+    <string name="weather_status">Cloudy</string>
+    <string name="pressure">Min and Max</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

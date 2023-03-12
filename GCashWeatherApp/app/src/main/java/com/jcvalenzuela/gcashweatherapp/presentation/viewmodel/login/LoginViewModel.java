@@ -1,7 +1,7 @@
-package com.jcvalenzuela.gcashweatherapp.presentation.viewmodel;
+package com.jcvalenzuela.gcashweatherapp.presentation.viewmodel.login;
 
-import static com.jcvalenzuela.gcashweatherapp.domain.utils.Utility.isStringEmpty;
-import static com.jcvalenzuela.gcashweatherapp.domain.utils.Utility.isValidMail;
+import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.isStringEmpty;
+import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.isValidMail;
 
 import android.util.Log;
 

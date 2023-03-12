@@ -1,9 +1,9 @@
 package com.jcvalenzuela.gcashweatherapp.presentation.activity;
 
-import static com.jcvalenzuela.gcashweatherapp.domain.utils.CustomAlertDialogBuilder.disposableAlert;
-import static com.jcvalenzuela.gcashweatherapp.domain.utils.Utility.dispose;
-import static com.jcvalenzuela.gcashweatherapp.domain.utils.Utility.disposeAlertDialog;
-import static com.jcvalenzuela.gcashweatherapp.domain.utils.Utility.disposeComposite;
+import static com.jcvalenzuela.gcashweatherapp.helper.utils.CustomAlertDialogBuilder.disposableAlert;
+import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.dispose;
+import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.disposeAlertDialog;
+import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.disposeComposite;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -19,17 +19,15 @@ import com.jcvalenzuela.gcashweatherapp.BR;
 import com.jcvalenzuela.gcashweatherapp.R;
 import com.jcvalenzuela.gcashweatherapp.databinding.ActivityRegistrationBinding;
 import com.jcvalenzuela.gcashweatherapp.domain.LoginEnumState;
-import com.jcvalenzuela.gcashweatherapp.domain.utils.CustomAlertDialogBuilder;
+import com.jcvalenzuela.gcashweatherapp.helper.utils.CustomAlertDialogBuilder;
 import com.jcvalenzuela.gcashweatherapp.presentation.base.BaseActivity;
-import com.jcvalenzuela.gcashweatherapp.presentation.viewmodel.LoginViewModel;
+import com.jcvalenzuela.gcashweatherapp.presentation.viewmodel.login.LoginViewModel;
 
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
-import kotlin.Unit;
 
 public class RegistrationActivity extends BaseActivity<ActivityRegistrationBinding, LoginViewModel> {
 

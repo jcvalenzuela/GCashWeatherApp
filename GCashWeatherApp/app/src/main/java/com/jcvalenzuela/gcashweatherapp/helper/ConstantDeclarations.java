@@ -1,4 +1,4 @@
-package com.jcvalenzuela.gcashweatherapp.domain.utils;
+package com.jcvalenzuela.gcashweatherapp.helper;
 
 public class ConstantDeclarations {
     public static final int PERMISSION_REQUEST_LOCATION = 99;

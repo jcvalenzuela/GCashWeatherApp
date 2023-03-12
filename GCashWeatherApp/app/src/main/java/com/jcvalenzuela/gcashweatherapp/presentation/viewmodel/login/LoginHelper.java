@@ -1,4 +1,4 @@
-package com.jcvalenzuela.gcashweatherapp.presentation.viewmodel;
+package com.jcvalenzuela.gcashweatherapp.presentation.viewmodel.login;
 
 public interface LoginHelper {
 

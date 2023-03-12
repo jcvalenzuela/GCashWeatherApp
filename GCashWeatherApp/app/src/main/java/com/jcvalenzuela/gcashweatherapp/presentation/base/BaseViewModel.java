@@ -21,8 +21,8 @@ public abstract class BaseViewModel extends ViewModel {
         return isLoading;
     }
 
-    public void setIsLoading(MutableLiveData<Boolean> isLoading) {
-        this.isLoading = isLoading;
+    public void setIsLoading(boolean isLoading) {
+        this.isLoading.setValue(isLoading);
     }
 
     public MainDataRepositoryImpl getMainDataRepository() {

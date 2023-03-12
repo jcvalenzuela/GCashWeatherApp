@@ -1,7 +1,7 @@
 package com.jcvalenzuela.gcashweatherapp.di.module;
 
 import static com.jcvalenzuela.gcashweatherapp.data.remote.client.ApiClient.BASE_URL_STRING;
-import static com.jcvalenzuela.gcashweatherapp.domain.utils.Utility.hasNetworkConnection;
+import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.hasNetworkConnection;
 
 import android.app.Application;
 import android.content.Context;
@@ -17,7 +17,10 @@ import com.jcvalenzuela.gcashweatherapp.data.repository.local.LocalDataRepositor
 import com.jcvalenzuela.gcashweatherapp.data.repository.remote.RemoteWeatherDataRepository;
 import com.jcvalenzuela.gcashweatherapp.data.repository.remote.RemoteWeatherDataRepositoryImpl;
 import com.jcvalenzuela.gcashweatherapp.di.DatabaseInfo;
-import com.jcvalenzuela.gcashweatherapp.domain.utils.ConstantDeclarations;
+import com.jcvalenzuela.gcashweatherapp.helper.ConstantDeclarations;
+import com.jcvalenzuela.gcashweatherapp.presentation.adapter.CurrentWeatherAdapter;
+
+import java.util.ArrayList;
 
 import javax.inject.Singleton;
 
@@ -122,5 +125,11 @@ public class AppModule {
     @Singleton
     public static MainDataRepository provideMainRepository(MainDataRepositoryImpl mainRepository) {
         return mainRepository;
+    }
+
+    @Provides
+    @Singleton
+    CurrentWeatherAdapter provideAdapter() {
+        return new CurrentWeatherAdapter(new ArrayList<>());
     }
 }

@@ -1,4 +1,4 @@
-package com.jcvalenzuela.gcashweatherapp.domain.utils;
+package com.jcvalenzuela.gcashweatherapp.helper.utils;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,7 +14,6 @@ import com.jcvalenzuela.gcashweatherapp.R;
 
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import kotlin.Unit;
