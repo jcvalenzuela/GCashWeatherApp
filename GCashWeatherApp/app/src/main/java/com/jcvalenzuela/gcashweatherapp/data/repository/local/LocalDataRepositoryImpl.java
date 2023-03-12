@@ -29,11 +29,6 @@ public class LocalDataRepositoryImpl implements LocalDataRepository {
     }
 
     @Override
-    public boolean isAlreadyRegistered(String email, String user) {
-        return appDatabase.getLoginDao().isAlreadyRegistered(email, user);
-    }
-
-    @Override
     public boolean isUserAccountExists(String user) {
         return appDatabase.getLoginDao().isUserAccountExists(user);
     }

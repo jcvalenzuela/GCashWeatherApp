@@ -10,7 +10,5 @@ public interface LocalDataRepository {
 
     LiveData<LoginEntity> loginLiveData(String email, String password);
 
-    boolean isAlreadyRegistered(String email, String user);
-
     boolean isUserAccountExists(String user);
 }

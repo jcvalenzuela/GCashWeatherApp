@@ -12,9 +12,29 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.activity.RegistrationActivity"
-        android:background="@drawable/gradient_background">
+        android:background="@drawable/gradient_background"
+        tools:context=".presentation.activity.RegistrationActivity">
 
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <ImageView
+            android:id="@+id/imgBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintEnd_toStartOf="@+id/imageView5"
+            app:layout_constraintHorizontal_bias="0.135"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline2"
+            app:layout_constraintVertical_bias="0.25"
+            app:srcCompat="@drawable/arrow_back_ios" />
 
         <ImageView
             android:id="@+id/imageView5"
@@ -27,16 +47,18 @@
             app:srcCompat="@drawable/app_registration" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/linearLayout2"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/white_background"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="14dp"
             android:layout_marginBottom="50dp"
+            android:background="@drawable/white_background"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView5"
-            tools:layout_editor_absoluteX="2dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView5">
 
             <EditText
                 android:id="@+id/editTextEmail"
@@ -50,9 +72,10 @@
                 android:drawablePadding="16dp"
                 android:ems="10"
                 android:hint="@string/email"
-                android:text="@{loginViewModel.emailRegistration}"
                 android:inputType="textPersonName"
                 android:padding="8dp"
+                android:text="@={loginViewModel.emailRegistration}"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline5" />
@@ -69,9 +92,10 @@
                 android:drawablePadding="16dp"
                 android:ems="10"
                 android:hint="@string/user_name"
-                android:text="@{loginViewModel.userNameRegistration}"
                 android:inputType="textPersonName"
                 android:padding="8dp"
+                android:text="@={loginViewModel.userNameRegistration}"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline5" />
@@ -88,9 +112,10 @@
                 android:drawablePadding="16dp"
                 android:ems="10"
                 android:hint="@string/password"
-                android:text="@{loginViewModel.passwordRegistration}"
                 android:inputType="textPassword"
                 android:padding="8dp"
+                android:text="@={loginViewModel.passwordRegistration}"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline5" />
@@ -107,9 +132,10 @@
                 android:drawablePadding="16dp"
                 android:ems="10"
                 android:hint="@string/re_password"
-                android:text="@{loginViewModel.confirmPasswordRegistration}"
                 android:inputType="textPassword"
                 android:padding="8dp"
+                android:text="@={loginViewModel.confirmPasswordRegistration}"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline5" />
@@ -123,7 +149,6 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="32dp"
-                android:onClick="@{()->loginViewModel.onRegisterUserButtonClicked()}"
                 android:background="@drawable/button_background"
                 android:text="@string/register"
                 android:textColor="@color/button_text_color"

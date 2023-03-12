@@ -18,13 +18,13 @@ import com.jcvalenzuela.gcashweatherapp.presentation.base.BaseViewModel;
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
 public class LoginViewModel extends BaseViewModel implements LoginHelper {
 
+    private static final String TAG = LoginViewModel.class.getSimpleName();
     //RxDisposable
-    private Disposable rxDisposable = new CompositeDisposable();
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
     public MutableLiveData<String> emailRegistration = new MutableLiveData<>();
     public MutableLiveData<String> userNameRegistration = new MutableLiveData<>();
     public MutableLiveData<String> passwordRegistration = new MutableLiveData<>();
@@ -44,6 +44,7 @@ public class LoginViewModel extends BaseViewModel implements LoginHelper {
     public LoginViewModel(MainDataRepositoryImpl mainDataRepository) {
         super(mainDataRepository);
         liveLoginDataMutableLiveData = new MutableLiveData<>();
+        Log.e(TAG, "Init LoginViewModel");
     }
 
     @Override
@@ -53,7 +54,7 @@ public class LoginViewModel extends BaseViewModel implements LoginHelper {
 
 
     @Override
-    public void onLoginButtonClicked() {
+    public void onUserLogin() {
         loginDataModel = new LoginDataModel(
                 usernameLogin.getValue(),
                 passwordLogin.getValue(),
@@ -99,13 +100,8 @@ public class LoginViewModel extends BaseViewModel implements LoginHelper {
     }
 
     @Override
-    public void onRegisterUserButtonClicked() {
-        loginDataModel = new LoginDataModel(
-                userNameRegistration.getValue(),
-                passwordRegistration.getValue(),
-                emailRegistration.getValue(),
-                confirmPasswordRegistration.getValue()
-        );
+    public void onUserRegistration() {
+        Timber.e(TAG, "OnRegisterButtonClicked");
 
         if (isStringEmpty(userNameRegistration.getValue())
                 || isStringEmpty(passwordRegistration.getValue())
@@ -122,7 +118,7 @@ public class LoginViewModel extends BaseViewModel implements LoginHelper {
             return;
         }
 
-        if (!isValidMail(loginDataModel.getEmail())) {
+        if (!isValidMail(emailRegistration.getValue())) {
 
             liveLoginDataMutableLiveData.setValue(
                     new LiveLoginData(
@@ -134,27 +130,44 @@ public class LoginViewModel extends BaseViewModel implements LoginHelper {
             return;
         }
 
-        if (getMainDataRepository()
-                .getLocalDataRepository().isAlreadyRegistered(
-                        emailRegistration.getValue(),
-                        userNameRegistration.getValue())) {
+        Timber.e(TAG, "isUserAccountAlreadyExists: " + isUserAccountAlreadyExists());
+
+        if (isUserAccountAlreadyExists()) {
+
+            setFieldsRegistration(
+                    emailRegistration.getValue(),
+                    userNameRegistration.getValue(),
+                    passwordRegistration.getValue(),
+                    confirmPasswordRegistration.getValue()
+            );
+
             liveLoginDataMutableLiveData.setValue(
                     new LiveLoginData(
                             LoginEnumState.ACCOUNT_ALREADY_EXISTS,
                             "Account already exist"
                     )
             );
+            return;
         }
 
-        if (isStringEmpty(passwordRegistration.getValue())
-                && isStringEmpty(confirmPasswordRegistration.getValue())
+        if (!isStringEmpty(passwordRegistration.getValue())
+                && !isStringEmpty(confirmPasswordRegistration.getValue())
                 && !passwordRegistration.getValue().equals(confirmPasswordRegistration.getValue())) {
+
+            setFieldsRegistration(
+              emailRegistration.getValue(),
+              userNameRegistration.getValue(),
+              "",
+              ""
+            );
+
             liveLoginDataMutableLiveData.setValue(
                     new LiveLoginData(
                             LoginEnumState.PASSWORD_NOT_MATCH,
                             "Password not match!"
                     )
             );
+            return;
         }
 
         getMainDataRepository()
@@ -173,6 +186,22 @@ public class LoginViewModel extends BaseViewModel implements LoginHelper {
                         "Registration Successful"
                 )
         );
+
+
+
+    }
+
+    private void setFieldsRegistration(String email, String user, String pass, String confirmPass) {
+        emailRegistration.setValue(email);
+        userNameRegistration.setValue(user);
+        passwordRegistration.setValue(pass);
+        confirmPasswordRegistration.setValue(confirmPass);
+    }
+
+    private boolean isUserAccountAlreadyExists() {
+        return getMainDataRepository()
+                .getLocalDataRepository().isUserAccountExists(
+                        userNameRegistration.getValue());
     }
 
 

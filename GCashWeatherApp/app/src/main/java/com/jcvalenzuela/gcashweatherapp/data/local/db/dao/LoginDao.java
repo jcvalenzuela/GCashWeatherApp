@@ -16,9 +16,6 @@ public interface LoginDao {
     @Query("SELECT * FROM tblLogin WHERE user = :user AND password = :password")
     LiveData<LoginEntity> loginLiveData(String user, String password);
 
-    @Query("SELECT * FROM tblLogin WHERE email = :email AND user = :user")
-    boolean isAlreadyRegistered(String email, String user);
-
 
     @Query("SELECT * FROM tblLogin WHERE user = :user")
     boolean isUserAccountExists(String user);
