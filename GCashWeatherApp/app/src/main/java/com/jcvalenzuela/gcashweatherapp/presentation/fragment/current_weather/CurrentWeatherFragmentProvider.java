@@ -1,4 +1,4 @@
-package com.jcvalenzuela.gcashweatherapp.presentation.fragment;
+package com.jcvalenzuela.gcashweatherapp.presentation.fragment.current_weather;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

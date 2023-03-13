@@ -5,11 +5,15 @@ import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.hasNetworkCo
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.room.Room;
 
+import com.jcvalenzuela.gcashweatherapp.R;
 import com.jcvalenzuela.gcashweatherapp.data.MainDataRepository;
 import com.jcvalenzuela.gcashweatherapp.data.MainDataRepositoryImpl;
+import com.jcvalenzuela.gcashweatherapp.data.local.cache.PrefSharedCacheData;
+import com.jcvalenzuela.gcashweatherapp.data.local.cache.PrefSharedHelper;
 import com.jcvalenzuela.gcashweatherapp.data.local.db.dao.AppDatabase;
 import com.jcvalenzuela.gcashweatherapp.data.remote.ApiClientService;
 import com.jcvalenzuela.gcashweatherapp.data.repository.local.LocalDataRepository;
@@ -132,4 +136,17 @@ public class AppModule {
     CurrentWeatherAdapter provideAdapter() {
         return new CurrentWeatherAdapter(new ArrayList<>());
     }
+
+    @Provides
+    @Singleton
+    public static PrefSharedHelper provideSharedData(PrefSharedCacheData prefSharedCacheData) {
+        return prefSharedCacheData;
+    }
+
+    @Provides
+    @Singleton
+    public static SharedPreferences provideSharedPreferences(Context context) {
+        return context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE);
+    }
+
 }

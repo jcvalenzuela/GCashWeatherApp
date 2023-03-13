@@ -15,12 +15,13 @@
     <string name="country">Philippines</string>
     <string name="city">Lipa City, Batangas</string>
     <string name="current_date">March 12, 2023</string>
-    <string name="sun_info">Sunrise</string>
-    <string name="cur_weather">Current Weather</string>
-    <string name="fetch_weather">Fetch Weather List</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+    <string name="cur_weather">Forecast Weather</string>
+    <string name="fetch_weather">Fetch Weather</string>
     <string name="time">Time</string>
     <string name="weather_status">Cloudy</string>
     <string name="pressure">Min and Max</string>
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

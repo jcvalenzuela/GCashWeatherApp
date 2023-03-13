@@ -1,4 +1,4 @@
-package com.jcvalenzuela.gcashweatherapp.domain;
+package com.jcvalenzuela.gcashweatherapp.domain.model;
 
 public class LoginDataModel {
 

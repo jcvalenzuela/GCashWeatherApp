@@ -1,14 +1,16 @@
 package com.jcvalenzuela.gcashweatherapp.presentation.adapter;
 
-import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.dateAndTimeFormatter;
+import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.convertToDate;
+import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.convertToTime;
+import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.getWeatherStatus;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
-import com.jcvalenzuela.gcashweatherapp.R;
 import com.jcvalenzuela.gcashweatherapp.data.model.response.forecast_weather.List;
 import com.jcvalenzuela.gcashweatherapp.databinding.ItemWeatherListBinding;
 import com.jcvalenzuela.gcashweatherapp.presentation.base.BaseAdapter;
@@ -20,6 +22,8 @@ public class CurrentWeatherAdapter extends BaseAdapter<List> {
 
     private ItemAdapterListener itemAdapterListener;
 
+    private Context context;
+
     public CurrentWeatherAdapter(java.util.List<List> weatherItems) {
         super(weatherItems);
     }
@@ -27,6 +31,7 @@ public class CurrentWeatherAdapter extends BaseAdapter<List> {
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        this.context = parent.getContext();
         return new CurrentWeatherAdapter.CurrentWeatherViewHolder(
                 ItemWeatherListBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
         );
@@ -73,12 +78,12 @@ public class CurrentWeatherAdapter extends BaseAdapter<List> {
                         + list.get(position).getWeatherList().get(0).getDescription();
                 weatherId = list.get(position).getWeatherList().get(0).getId();
             }
-            itemWeatherListBinding.cardView.setBackgroundColor(itemView.getResources().getColor(R.color.white, null));
             itemWeatherListBinding.setItemHolder(new ItemHolder(list.get(position), this));
-            itemWeatherListBinding.textViewDay.setText(dateAndTimeFormatter(list.get(position).getDtTxt()));
-            itemWeatherListBinding.textViewTemperature.setText("Temperature \n" + temp + "°C");
+            itemWeatherListBinding.textViewDay.setText(convertToDate(list.get(position).getDt()) +"\n" + convertToTime(list.get(position).getDt()));
+            itemWeatherListBinding.textViewTemperature.setText(temp + "°C");
             itemWeatherListBinding.textViewMinMax.setText("Min/Max \n" + tempMin + "/" + tempMax + "°C");
             itemWeatherListBinding.textViewStatus.setText(description);
+            itemWeatherListBinding.imageView.setImageDrawable(context.getDrawable(getWeatherStatus(weatherId)));
             itemWeatherListBinding.executePendingBindings();
         }
     }

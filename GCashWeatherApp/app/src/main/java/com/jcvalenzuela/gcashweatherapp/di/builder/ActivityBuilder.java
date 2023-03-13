@@ -4,8 +4,8 @@ import com.jcvalenzuela.gcashweatherapp.presentation.activity.CurrentWeatherActi
 import com.jcvalenzuela.gcashweatherapp.presentation.activity.LoginActivity;
 import com.jcvalenzuela.gcashweatherapp.presentation.activity.MainActivity;
 import com.jcvalenzuela.gcashweatherapp.presentation.activity.RegistrationActivity;
-import com.jcvalenzuela.gcashweatherapp.presentation.fragment.CurrentWeatherFragmentModule;
-import com.jcvalenzuela.gcashweatherapp.presentation.fragment.CurrentWeatherFragmentProvider;
+import com.jcvalenzuela.gcashweatherapp.presentation.fragment.current_weather.CurrentWeatherFragmentProvider;
+import com.jcvalenzuela.gcashweatherapp.presentation.fragment.fetch_weather.FetchWeatherFragmentProvider;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -22,7 +22,10 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector
     public abstract LoginActivity contributeLoginActivity();
 
-    @ContributesAndroidInjector(modules = CurrentWeatherFragmentProvider.class)
+    @ContributesAndroidInjector(modules = {
+            CurrentWeatherFragmentProvider.class,
+            FetchWeatherFragmentProvider.class
+    })
     public abstract CurrentWeatherActivity contributeCurrentWeatherActivity();
 
 

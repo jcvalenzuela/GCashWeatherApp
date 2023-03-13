@@ -2,6 +2,7 @@ package com.jcvalenzuela.gcashweatherapp.presentation.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,20 +31,24 @@ public abstract class BaseFragment  <T extends ViewDataBinding, V extends ViewMo
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e("TAG", "onCreate");
         viewModel = initViewModel();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.e("TAG", "onCreateView: " + getLayoutId());
         viewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
         rootView = viewDataBinding.getRoot();
+        viewDataBinding.setVariable(getBindingVariables(), initViewModel());
         return rootView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.e("TAG", "onViewCreated");
         getViewDataBinding().setVariable(getBindingVariables(), getViewModel());
         getViewDataBinding().setLifecycleOwner(this);
         getViewDataBinding().executePendingBindings();

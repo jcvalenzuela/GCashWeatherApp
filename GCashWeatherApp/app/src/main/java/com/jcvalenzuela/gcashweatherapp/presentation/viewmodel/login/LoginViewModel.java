@@ -11,7 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.jcvalenzuela.gcashweatherapp.data.MainDataRepositoryImpl;
 import com.jcvalenzuela.gcashweatherapp.data.model.entity.LoginEntity;
 import com.jcvalenzuela.gcashweatherapp.domain.LiveLoginData;
-import com.jcvalenzuela.gcashweatherapp.domain.LoginDataModel;
+import com.jcvalenzuela.gcashweatherapp.domain.model.LoginDataModel;
 import com.jcvalenzuela.gcashweatherapp.domain.LoginEnumState;
 import com.jcvalenzuela.gcashweatherapp.presentation.base.BaseViewModel;
 

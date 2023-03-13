@@ -1,6 +1,7 @@
 package com.jcvalenzuela.gcashweatherapp.presentation.viewmodel.weather;
 
 import static com.jcvalenzuela.gcashweatherapp.data.remote.client.ApiClient.API_KEY_STRING;
+import static com.jcvalenzuela.gcashweatherapp.helper.ConstantDeclarations.SHARED_PREF_WEATHER_ID_KEY;
 
 import android.util.Log;
 
@@ -114,5 +115,19 @@ public class WeatherViewModel extends BaseViewModel implements WeatherViewModelH
                         Log.e(TAG, "onComplete onGetForecastWeather" );
                     }
                 });
+    }
+
+
+
+    public void setWeatherId(int id) {
+        getMainDataRepository().getPrefSharedCacheData().setId(id);
+    }
+
+    public int getWeatherId() {
+        return getMainDataRepository().getPrefSharedCacheData().getId();
+    }
+
+    public void deleteWeatherId() {
+        getMainDataRepository().getPrefSharedCacheData().clear(SHARED_PREF_WEATHER_ID_KEY);
     }
 }

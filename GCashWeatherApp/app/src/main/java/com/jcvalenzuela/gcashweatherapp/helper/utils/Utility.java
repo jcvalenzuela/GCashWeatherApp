@@ -5,7 +5,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.util.Patterns;
+
+import com.jcvalenzuela.gcashweatherapp.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -85,7 +88,6 @@ public class Utility {
     }
 
     public static boolean isSunset(long sunrise) {
-        boolean isDetect = false;
         // sunset
         int sunset = 36000000; //default
         Calendar currentCal = Calendar.getInstance(Locale.getDefault());
@@ -101,12 +103,53 @@ public class Utility {
         long currTime = currentDate.getTime();
 
         if (currTime >= sunset) {
-            Timber.i("Night at start 6pm...");
-            isDetect = true;
+            return true;
         } else if (currTime <= sunrise) {
-            Timber.e("Sunrise is starting...");
-            isDetect = false;
+            return  false;
         }
-        return isDetect;
+        return false;
     }
+
+    public static int getCurrentWeatherStatus(int id, int sunset) {
+        Log.e("TAG", "Current Weather Id: " + id);
+        if (id / 100 == 2) {
+            return R.drawable.stormy;
+        } else if (id / 100 == 3) {
+            return R.drawable.rain_clouds;
+        } else if (id / 100 == 5) {
+            return R.drawable.rain_clouds;
+        } else if (id / 100 == 8) {
+            if (isSunset(sunset)) {
+                return R.drawable.moon_night;
+            } else {
+                return R.drawable.cloud_sun;
+            }
+        } else if (id == 800 || id == 801 || id == 803) {
+            if (isSunset(sunset)) {
+                return R.drawable.moon_night;
+            } else {
+                return R.drawable.cloud_sun;
+            }
+        } else {
+            return R.drawable.cloud_sun;
+        }
+    }
+
+    public static int getWeatherStatus(int id) {
+        Log.e("TAG", "Weather Id: " + id);
+        if (id / 100 == 2) {
+            return R.drawable.stormy;
+        } else if ((id / 100 == 3) || (id / 100 == 5)) {
+            return R.drawable.rain_clouds;
+        } else if ((id / 100 == 8) || (id == 800) ) {
+            return R.drawable.cloud_sun;
+        }  else if (id == 801 || id == 803) {
+            Log.e("TAG", "Clouds");
+            return R.drawable.gray_cloud;
+        } else {
+            Log.e("TAG", "Cloud Sun");
+            return R.drawable.cloud_sun;
+        }
+    }
+
 }
