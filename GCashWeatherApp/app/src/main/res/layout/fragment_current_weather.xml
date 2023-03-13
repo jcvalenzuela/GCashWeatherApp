@@ -13,7 +13,7 @@
         android:id="@+id/frame_current_weather"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gradient_background"
+        android:background="@android:color/transparent"
         tools:context=".presentation.fragment.current_weather.CurrentWeatherFragment">
 
         <!-- TODO: Update blank fragment layout -->

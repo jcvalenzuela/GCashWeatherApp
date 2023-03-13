@@ -18,7 +18,6 @@ import java.util.Locale;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import timber.log.Timber;
 
 public class Utility {
 
@@ -63,7 +62,7 @@ public class Utility {
         try {
             date = getDateFormat.parse(dateTime);
         } catch (ParseException e) {
-            Timber.e(e);
+            Log.e("TAG", e.getMessage());
         }
         return newDateFormat.format(date);
     }
@@ -120,18 +119,42 @@ public class Utility {
             return R.drawable.rain_clouds;
         } else if (id / 100 == 8) {
             if (isSunset(sunset)) {
-                return R.drawable.moon_night;
+                return R.drawable.cresent_moon;
             } else {
                 return R.drawable.cloud_sun;
             }
         } else if (id == 800 || id == 801 || id == 803) {
             if (isSunset(sunset)) {
-                return R.drawable.moon_night;
+                return R.drawable.cresent_moon;
             } else {
                 return R.drawable.cloud_sun;
             }
         } else {
             return R.drawable.cloud_sun;
+        }
+    }
+
+    public static int isDayTime(int id, int sunset) {
+        if (id / 100 == 2) {
+            return R.drawable.gradient_background_rain;
+        } else if (id / 100 == 3) {
+            return R.drawable.gradient_background_rain;
+        } else if (id / 100 == 5) {
+            return R.drawable.gradient_background_rain;
+        } else if (id / 100 == 8) {
+            if (isSunset(sunset)) {
+                return R.drawable.gradient_background_night;
+            } else {
+                return R.drawable.gradient_background_day;
+            }
+        } else if (id == 800 || id == 801 || id == 803) {
+            if (isSunset(sunset)) {
+                return R.drawable.gradient_background_night;
+            } else {
+                return R.drawable.gradient_background_day;
+            }
+        } else {
+            return R.drawable.gradient_background_day;
         }
     }
 

@@ -80,8 +80,8 @@ public class CurrentWeatherAdapter extends BaseAdapter<List> {
             }
             itemWeatherListBinding.setItemHolder(new ItemHolder(list.get(position), this));
             itemWeatherListBinding.textViewDay.setText(convertToDate(list.get(position).getDt()) +"\n" + convertToTime(list.get(position).getDt()));
-            itemWeatherListBinding.textViewTemperature.setText(temp + "°C");
-            itemWeatherListBinding.textViewMinMax.setText("Min/Max \n" + tempMin + "/" + tempMax + "°C");
+            itemWeatherListBinding.textViewTemperature.setText(temp + "°C" + "\nMin/Max \n" + tempMin + "/" + tempMax + "°C");
+//            itemWeatherListBinding.textViewMinMax.setText("Min/Max \n" + tempMin + "/" + tempMax + "°C");
             itemWeatherListBinding.textViewStatus.setText(description);
             itemWeatherListBinding.imageView.setImageDrawable(context.getDrawable(getWeatherStatus(weatherId)));
             itemWeatherListBinding.executePendingBindings();

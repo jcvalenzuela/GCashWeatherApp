@@ -4,6 +4,11 @@ import static com.jcvalenzuela.gcashweatherapp.helper.ConstantDeclarations.PERMI
 import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.convertDblToStr;
 import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.convertToDate;
 import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.convertToTime;
+import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.dispose;
+import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.disposeAlertDialog;
+import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.disposeComposite;
+import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.getCurrentWeatherStatus;
+import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.isDayTime;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -14,6 +19,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +27,7 @@ import android.util.Log;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.jcvalenzuela.gcashweatherapp.BR;
+import com.jcvalenzuela.gcashweatherapp.helper.utils.CustomAlertDialogBuilder;
 import com.jcvalenzuela.gcashweatherapp.presentation.fragment.current_weather.CurrentWeatherFragment;
 import com.jcvalenzuela.gcashweatherapp.R;
 import com.jcvalenzuela.gcashweatherapp.databinding.ActivityCurrentWeatherBinding;
@@ -68,6 +75,33 @@ public class CurrentWeatherActivity extends BaseActivity<ActivityCurrentWeatherB
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dispose(disposable);
+        disposeComposite(compositeDisposable);
+        disposeAlertDialog(alertDialog);
+    }
+
+    @Override
     public int getLayoutId() {
         return R.layout.activity_current_weather;
     }
@@ -94,6 +128,15 @@ public class CurrentWeatherActivity extends BaseActivity<ActivityCurrentWeatherB
             initGeoLocation();
         } else {
             //Add error dialog
+
+             alertDialog = CustomAlertDialogBuilder.customDialogBox(
+                    this,
+                    R.drawable.error_outline,
+                    "Permission Denied",
+                    () -> {
+                        Log.e(TAG, "Request Permission");
+                        requestLocationPermission();
+                    });
         }
 
     }
@@ -107,19 +150,19 @@ public class CurrentWeatherActivity extends BaseActivity<ActivityCurrentWeatherB
                 getLifecycle()
         );
 
-        viewPagerAdapter.addFragment(new CurrentWeatherFragment());
+       viewPagerAdapter.addFragment(new CurrentWeatherFragment());
         viewPagerAdapter.addFragment(new FetchWeatherFragment());
         viewPager.setAdapter(viewPagerAdapter);
 
         tabLayout = getViewDataBinding().tabLayout;
         String[] stringArrayTabItems = {getString(R.string.cur_weather), getString(R.string.fetch_weather)};
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.cur_weather)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.fetch_weather)));
+
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
 
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-            tabLayout.addTab(tabLayout.newTab().setText(stringArrayTabItems[position]));
+            Log.e(TAG,"tabPosition: " + position);
+            tab.setText(stringArrayTabItems[position]);
         }).attach();
 
     }
@@ -139,19 +182,45 @@ public class CurrentWeatherActivity extends BaseActivity<ActivityCurrentWeatherB
     private void initResult() {
         getViewModel().getCurrentWeatherLiveData().observe(this, currentWeatherResponse -> {
             double celsius = Math.round(currentWeatherResponse.getMain().getTemp() - 273.15);
-            String temp = String.format(Locale.getDefault(), "%.0f", celsius);
-            String wind = "Wind\n{spd: " + currentWeatherResponse.getWind().getSpeed() + "km/hr | deg: " + currentWeatherResponse.getWind().getDeg() + "% }";
-            String humidity = "Humidity: " + currentWeatherResponse.getMain().getHumidity() + "%";
-            String sunInfo = "Sunrise: " + convertToTime(currentWeatherResponse.getSys().getSunrise()) + "\n\nSunset: " + convertToTime(currentWeatherResponse.getSys().getSunset());
-            getViewDataBinding().textViewTemperature.setText(temp + "°C");
+            String temp = String.format(Locale.getDefault(), "%.0f", celsius) + "°C";
+            getViewDataBinding().textViewTemperature.setText(temp);
             getViewDataBinding().textViewCountry.setText(currentWeatherResponse.getSys().getCountry());
             getViewDataBinding().textViewCity.setText(currentWeatherResponse.getName());
             getViewDataBinding().textViewCurrentDate.setText(convertToDate(currentWeatherResponse.getDt()));
             getViewDataBinding().textViewSunrise.setText(convertToTime(currentWeatherResponse.getSys().getSunrise()));
             getViewDataBinding().textViewSunset.setText(convertToTime(currentWeatherResponse.getSys().getSunset()));
 
+            getViewDataBinding().constraintBackground.setBackground(getDrawable(
+                    isDayTime(currentWeatherResponse.getWeatherList().get(0).getId(),
+                            currentWeatherResponse.getSys().getSunset())
+                    )
+            );
+//
+//            new CurrentWeatherFragment().getViewDataBinding().frameCurrentWeather.setBackground(
+//                    getDrawable(
+//                            isDayTime(currentWeatherResponse.getWeatherList().get(0).getId(),
+//                                    currentWeatherResponse.getSys().getSunset())
+//                    )
+//            );
+//
+//            new FetchWeatherFragment().getViewDataBinding().frameFetchWeather.setBackground(
+//                    getDrawable(
+//                            isDayTime(currentWeatherResponse.getWeatherList().get(0).getId(),
+//                                    currentWeatherResponse.getSys().getSunset())
+//                    )
+//            );
+
+            getViewDataBinding().imgIcon.setImageDrawable(getDrawable(
+                    getCurrentWeatherStatus(currentWeatherResponse.getWeatherList().get(0).getId(),
+                            currentWeatherResponse.getSys().getSunset())
+            ));
+
+
+
+            //GetForecastWeather
             getViewModel().onGetForecastWeather(currentWeatherResponse.getId());
 
+            //SetWeatherId
             getViewModel().setWeatherId(currentWeatherResponse.getId());
 
         });

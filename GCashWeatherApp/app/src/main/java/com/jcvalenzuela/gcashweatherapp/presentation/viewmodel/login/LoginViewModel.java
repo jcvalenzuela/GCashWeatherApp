@@ -18,7 +18,6 @@ import com.jcvalenzuela.gcashweatherapp.presentation.base.BaseViewModel;
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
-import timber.log.Timber;
 
 public class LoginViewModel extends BaseViewModel implements LoginHelper {
 
@@ -101,7 +100,7 @@ public class LoginViewModel extends BaseViewModel implements LoginHelper {
 
     @Override
     public void onUserRegistration() {
-        Timber.e(TAG, "OnRegisterButtonClicked");
+        Log.e(TAG, "OnRegisterButtonClicked");
 
         if (isStringEmpty(userNameRegistration.getValue())
                 || isStringEmpty(passwordRegistration.getValue())
@@ -130,7 +129,7 @@ public class LoginViewModel extends BaseViewModel implements LoginHelper {
             return;
         }
 
-        Timber.e(TAG, "isUserAccountAlreadyExists: " + isUserAccountAlreadyExists());
+        Log.e(TAG, "isUserAccountAlreadyExists: " + isUserAccountAlreadyExists());
 
         if (isUserAccountAlreadyExists()) {
 

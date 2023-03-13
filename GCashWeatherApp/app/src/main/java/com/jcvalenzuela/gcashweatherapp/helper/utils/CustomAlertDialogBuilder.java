@@ -3,6 +3,7 @@ package com.jcvalenzuela.gcashweatherapp.helper.utils;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +18,6 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import kotlin.Unit;
-import timber.log.Timber;
 
 public class CustomAlertDialogBuilder {
 
@@ -52,7 +52,7 @@ public class CustomAlertDialogBuilder {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        Timber.e(throwable);
+                        Log.e("TAG", throwable.getMessage());
                     }
                 }));
 

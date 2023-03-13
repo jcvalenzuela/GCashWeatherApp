@@ -1,5 +1,7 @@
 package com.jcvalenzuela.gcashweatherapp.presentation.fragment.fetch_weather;
 
+import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.dispose;
+
 import android.content.Context;
 import android.os.Bundle;
 
@@ -20,7 +22,6 @@ import com.jcvalenzuela.gcashweatherapp.data.model.response.forecast_weather.Lis
 import com.jcvalenzuela.gcashweatherapp.databinding.FragmentFetchWeatherBinding;
 import com.jcvalenzuela.gcashweatherapp.presentation.adapter.CurrentWeatherAdapter;
 import com.jcvalenzuela.gcashweatherapp.presentation.base.BaseFragment;
-import com.jcvalenzuela.gcashweatherapp.presentation.fragment.current_weather.CurrentWeatherFragment;
 import com.jcvalenzuela.gcashweatherapp.presentation.viewmodel.weather.WeatherViewModel;
 
 import java.util.concurrent.TimeUnit;
@@ -31,9 +32,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 
 public class FetchWeatherFragment extends BaseFragment<FragmentFetchWeatherBinding, WeatherViewModel> implements CurrentWeatherAdapter.ItemAdapterListener {
@@ -83,6 +82,7 @@ public class FetchWeatherFragment extends BaseFragment<FragmentFetchWeatherBindi
     @Override
     public void onDestroy() {
         super.onDestroy();
+        dispose(disposable);
     }
 
     @Override
@@ -109,12 +109,11 @@ public class FetchWeatherFragment extends BaseFragment<FragmentFetchWeatherBindi
         disposable = Observable.timer(500, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aLong -> getViewModel().onGetForecastWeather(getViewModel().getWeatherId()), new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        Log.e(TAG, throwable.getMessage());
-                    }
-                });
+                .subscribe(aLong -> {
+                    dispose(disposable);
+                    getViewModel().onGetForecastWeather(getViewModel().getWeatherId());
+                    },
+                        throwable -> Log.e(TAG, throwable.getMessage()));
     }
 
     private void initRecyclerView() {

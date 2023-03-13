@@ -18,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
-import timber.log.Timber;
 
 public class GeoLocationService extends Service implements LocationListener {
 
@@ -127,7 +126,7 @@ public class GeoLocationService extends Service implements LocationListener {
             }
 
         } catch (Exception e) {
-            Timber.e(e);
+            Log.e(TAG, e.getMessage());
         }
         return location;
     }

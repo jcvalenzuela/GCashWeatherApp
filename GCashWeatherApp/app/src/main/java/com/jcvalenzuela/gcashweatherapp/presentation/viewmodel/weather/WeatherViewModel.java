@@ -20,7 +20,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 public class WeatherViewModel extends BaseViewModel implements WeatherViewModelHelper {
 
@@ -107,7 +106,7 @@ public class WeatherViewModel extends BaseViewModel implements WeatherViewModelH
 
                     @Override
                     public void onError(Throwable e) {
-                        Timber.tag(TAG).e(e);
+                        Log.e(TAG, e.getMessage());
                     }
 
                     @Override
