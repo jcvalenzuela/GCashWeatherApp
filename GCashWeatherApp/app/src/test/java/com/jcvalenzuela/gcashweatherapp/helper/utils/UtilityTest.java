@@ -11,30 +11,28 @@ public class UtilityTest {
 
     @Test
     public void isValidMail() {
+        boolean testTrue = Utility.isValidMail("test");
+        assertTrue(testTrue);
     }
 
     @Test
-    public void isStringEmpty() {
+    public void isStringEmpty_TC01() {
+        boolean testTrue = Utility.isStringEmpty("");
+        assertTrue(testTrue);
     }
 
-    @Test
-    public void disposeComposite() {
-    }
 
     @Test
-    public void dispose() {
+    public void isStringEmpty_TC02() {
+        boolean testFalse = Utility.isStringEmpty("helloworld");
+        assertFalse(testFalse);
     }
 
-    @Test
-    public void disposeAlertDialog() {
-    }
 
     @Test
-    public void dateAndTimeFormatter() {
-    }
-
-    @Test
-    public void convertDblToStr() {
+    public void convertDblToStr_TC01() {
+        Double dtTest = 10.20;
+        String testTrue = Utility.convertDblToStr(dtTest);
     }
 
     @Test

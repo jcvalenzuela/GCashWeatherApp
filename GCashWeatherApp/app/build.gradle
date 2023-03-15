@@ -87,6 +87,10 @@ dependencies {
     //Unit Testing
     testImplementation "org.robolectric:robolectric:4.2.1"
 
+    androidTestImplementation "com.google.truth:truth:1.0.1"
+    androidTestImplementation "android.arch.core:core-testing:1.1.1"
+    testImplementation "androidx.test:core:1.5.0"
+
 
 
 }

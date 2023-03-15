@@ -1,5 +1,6 @@
 package com.jcvalenzuela.gcashweatherapp.data.local.db.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -14,6 +15,9 @@ public interface LoginDao {
 
     @Query("SELECT * FROM tblLogin WHERE user = :user AND password = :password")
     boolean isUserLogin(String user, String password);
+
+    @Query("SELECT * FROM tblLogin WHERE user = :user AND password = :password")
+    LiveData<LoginEntity> loginLiveData(String user, String password);
 
 
     @Query("SELECT * FROM tblLogin WHERE user = :user")
