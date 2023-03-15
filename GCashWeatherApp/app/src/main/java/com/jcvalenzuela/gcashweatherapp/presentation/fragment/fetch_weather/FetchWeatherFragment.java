@@ -1,6 +1,7 @@
 package com.jcvalenzuela.gcashweatherapp.presentation.fragment.fetch_weather;
 
 import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.dispose;
+import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.isDayTime;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -58,6 +59,7 @@ public class FetchWeatherFragment extends BaseFragment<FragmentFetchWeatherBindi
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         currentWeatherAdapter.setItemAdapterListener(this);
+        getViewDataBinding().frameFetchWeather.setBackground(getContext().getDrawable(isDayTime()));
         initResult();
         fetchCacheData();
     }

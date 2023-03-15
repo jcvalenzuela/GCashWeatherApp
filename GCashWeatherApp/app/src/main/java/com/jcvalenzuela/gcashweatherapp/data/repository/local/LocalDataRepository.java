@@ -8,7 +8,7 @@ public interface LocalDataRepository {
 
     void insertLogin(LoginEntity loginEntity);
 
-    LiveData<LoginEntity> loginLiveData(String email, String password);
+    boolean isUserLogin(String email, String password);
 
     boolean isUserAccountExists(String user);
 }

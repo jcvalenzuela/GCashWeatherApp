@@ -32,7 +32,10 @@ public class GeoLocationService extends Service implements LocationListener {
     private boolean isNetworkEnabled = false;
     private boolean isNetworkOrLocationEnabled = false;
 
+    private Context context;
+
     public GeoLocationService(Context context) {
+        this.context = context;
         initLocation(context);
     }
 
@@ -147,5 +150,13 @@ public class GeoLocationService extends Service implements LocationListener {
 
     public boolean isNetworkOrLocationEnabled() {
         return isNetworkOrLocationEnabled;
+    }
+
+    public boolean getGpsEnableStatus() {
+        return isGpsEnabled;
+    }
+
+    public boolean getNetworkEnableStatus() {
+        return isNetworkEnabled;
     }
 }

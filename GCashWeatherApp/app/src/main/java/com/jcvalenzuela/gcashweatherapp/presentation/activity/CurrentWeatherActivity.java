@@ -22,7 +22,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -36,6 +39,7 @@ import com.jcvalenzuela.gcashweatherapp.presentation.adapter.ViewPagerAdapter;
 import com.jcvalenzuela.gcashweatherapp.presentation.base.BaseActivity;
 import com.jcvalenzuela.gcashweatherapp.presentation.fragment.fetch_weather.FetchWeatherFragment;
 import com.jcvalenzuela.gcashweatherapp.presentation.viewmodel.weather.WeatherViewModel;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import java.util.Locale;
 
@@ -68,7 +72,8 @@ public class CurrentWeatherActivity extends BaseActivity<ActivityCurrentWeatherB
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         initDesign();
         initResult();
         requestLocationPermission();
@@ -129,7 +134,7 @@ public class CurrentWeatherActivity extends BaseActivity<ActivityCurrentWeatherB
         } else {
             //Add error dialog
 
-             alertDialog = CustomAlertDialogBuilder.customDialogBox(
+            alertDialog = CustomAlertDialogBuilder.customDialogBox(
                     this,
                     R.drawable.error_outline,
                     "Permission Denied",
@@ -141,7 +146,9 @@ public class CurrentWeatherActivity extends BaseActivity<ActivityCurrentWeatherB
 
     }
 
+    @SuppressWarnings("deprecation")
     private void initDesign() {
+        getViewDataBinding().constraintBackground.setBackground(getDrawable(isDayTime()));
 
         viewPager = getViewDataBinding().viewPager;
 
@@ -150,21 +157,13 @@ public class CurrentWeatherActivity extends BaseActivity<ActivityCurrentWeatherB
                 getLifecycle()
         );
 
-       viewPagerAdapter.addFragment(new CurrentWeatherFragment());
+        final DotsIndicator dotsIndicator = getViewDataBinding().dotsIndicator;
+
+
+        viewPagerAdapter.addFragment(new CurrentWeatherFragment());
         viewPagerAdapter.addFragment(new FetchWeatherFragment());
         viewPager.setAdapter(viewPagerAdapter);
-
-        tabLayout = getViewDataBinding().tabLayout;
-        String[] stringArrayTabItems = {getString(R.string.cur_weather), getString(R.string.fetch_weather)};
-
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-
-        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-            Log.e(TAG,"tabPosition: " + position);
-            tab.setText(stringArrayTabItems[position]);
-        }).attach();
-
+        dotsIndicator.setViewPager2(viewPager);
     }
 
     private void initGeoLocation() {
@@ -175,51 +174,32 @@ public class CurrentWeatherActivity extends BaseActivity<ActivityCurrentWeatherB
                     convertDblToStr(geoLocationService.getLatitude()),
                     convertDblToStr(geoLocationService.getLongitude())
             );
+        } else if (!geoLocationService.getGpsEnableStatus()){
+            alertDialog = CustomAlertDialogBuilder.customDialogBox(
+                    this,
+                    R.drawable.error_outline,
+                    getString(R.string.gps_alert_message),
+                    () -> {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    });
+        } else if (!geoLocationService.getNetworkEnableStatus()) {
+            alertDialog = CustomAlertDialogBuilder.customDialogBox(
+                    this,
+                    R.drawable.error_outline,
+                    getString(R.string.network_alert_message),
+                    () -> {
+                        Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                        startActivity(intent);
+                    });
         }
     }
 
 
     private void initResult() {
         getViewModel().getCurrentWeatherLiveData().observe(this, currentWeatherResponse -> {
-            double celsius = Math.round(currentWeatherResponse.getMain().getTemp() - 273.15);
-            String temp = String.format(Locale.getDefault(), "%.0f", celsius) + "°C";
-            getViewDataBinding().textViewTemperature.setText(temp);
-            getViewDataBinding().textViewCountry.setText(currentWeatherResponse.getSys().getCountry());
-            getViewDataBinding().textViewCity.setText(currentWeatherResponse.getName());
-            getViewDataBinding().textViewCurrentDate.setText(convertToDate(currentWeatherResponse.getDt()));
-            getViewDataBinding().textViewSunrise.setText(convertToTime(currentWeatherResponse.getSys().getSunrise()));
-            getViewDataBinding().textViewSunset.setText(convertToTime(currentWeatherResponse.getSys().getSunset()));
-
-            getViewDataBinding().constraintBackground.setBackground(getDrawable(
-                    isDayTime(currentWeatherResponse.getWeatherList().get(0).getId(),
-                            currentWeatherResponse.getSys().getSunset())
-                    )
-            );
-//
-//            new CurrentWeatherFragment().getViewDataBinding().frameCurrentWeather.setBackground(
-//                    getDrawable(
-//                            isDayTime(currentWeatherResponse.getWeatherList().get(0).getId(),
-//                                    currentWeatherResponse.getSys().getSunset())
-//                    )
-//            );
-//
-//            new FetchWeatherFragment().getViewDataBinding().frameFetchWeather.setBackground(
-//                    getDrawable(
-//                            isDayTime(currentWeatherResponse.getWeatherList().get(0).getId(),
-//                                    currentWeatherResponse.getSys().getSunset())
-//                    )
-//            );
-
-            getViewDataBinding().imgIcon.setImageDrawable(getDrawable(
-                    getCurrentWeatherStatus(currentWeatherResponse.getWeatherList().get(0).getId(),
-                            currentWeatherResponse.getSys().getSunset())
-            ));
-
-
-
             //GetForecastWeather
             getViewModel().onGetForecastWeather(currentWeatherResponse.getId());
-
             //SetWeatherId
             getViewModel().setWeatherId(currentWeatherResponse.getId());
 

@@ -8,9 +8,9 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:background="@color/main_back_color"
         tools:context=".presentation.activity.MainActivity">
 
@@ -33,7 +33,7 @@
         <pl.droidsonroids.gif.GifImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/weather_gif"
+            android:src="@drawable/sunset_gif"
             />
 
         <!--        <Button-->

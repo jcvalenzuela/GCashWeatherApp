@@ -4,6 +4,7 @@ import static com.jcvalenzuela.gcashweatherapp.helper.utils.CustomAlertDialogBui
 import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.dispose;
 import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.disposeAlertDialog;
 import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.disposeComposite;
+import static com.jcvalenzuela.gcashweatherapp.helper.utils.Utility.isDayTime;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -12,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 
 import com.jakewharton.rxbinding3.view.RxView;
 import com.jcvalenzuela.gcashweatherapp.BR;
@@ -45,7 +47,10 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getViewDataBinding().setLoginViewModel(initViewModel());
+        getViewDataBinding().constraintBackground.setBackground(getDrawable(isDayTime()));
         initButton();
         initResult();
     }

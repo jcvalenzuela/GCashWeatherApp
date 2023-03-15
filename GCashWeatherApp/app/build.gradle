@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.jcvalenzuela.gcashweatherapp"
-        minSdk 24
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -80,6 +80,12 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.26'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.26'
 
+    //Dot Indicator
+    implementation 'com.tbuonomo:dotsindicator:4.3'
+
+
+    //Unit Testing
+    testImplementation "org.robolectric:robolectric:4.2.1"
 
 
 
