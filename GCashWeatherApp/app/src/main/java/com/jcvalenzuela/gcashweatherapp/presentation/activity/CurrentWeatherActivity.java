@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -133,7 +134,7 @@ public class CurrentWeatherActivity extends BaseActivity<ActivityCurrentWeatherB
         } else {
             //Add error dialog
 
-             alertDialog = CustomAlertDialogBuilder.customDialogBox(
+            alertDialog = CustomAlertDialogBuilder.customDialogBox(
                     this,
                     R.drawable.error_outline,
                     "Permission Denied",
@@ -159,22 +160,10 @@ public class CurrentWeatherActivity extends BaseActivity<ActivityCurrentWeatherB
         final DotsIndicator dotsIndicator = getViewDataBinding().dotsIndicator;
 
 
-       viewPagerAdapter.addFragment(new CurrentWeatherFragment());
+        viewPagerAdapter.addFragment(new CurrentWeatherFragment());
         viewPagerAdapter.addFragment(new FetchWeatherFragment());
         viewPager.setAdapter(viewPagerAdapter);
         dotsIndicator.setViewPager2(viewPager);
-
-//        tabLayout = getViewDataBinding().tabLayout;
-//        String[] stringArrayTabItems = {getString(R.string.cur_weather), getString(R.string.fetch_weather)};
-//
-//        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-//
-//
-//        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-//            Log.e(TAG,"tabPosition: " + position);
-//            tab.setText(stringArrayTabItems[position]);
-//        }).attach();
-
     }
 
     private void initGeoLocation() {
@@ -185,14 +174,23 @@ public class CurrentWeatherActivity extends BaseActivity<ActivityCurrentWeatherB
                     convertDblToStr(geoLocationService.getLatitude()),
                     convertDblToStr(geoLocationService.getLongitude())
             );
-        } else {
+        } else if (!geoLocationService.getGpsEnableStatus()){
             alertDialog = CustomAlertDialogBuilder.customDialogBox(
                     this,
                     R.drawable.error_outline,
-                    "Location/Wifi/Data is OFF",
+                    getString(R.string.gps_alert_message),
                     () -> {
-                        Log.e(TAG, "Request Permission");
-                        requestLocationPermission();
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    });
+        } else if (!geoLocationService.getNetworkEnableStatus()) {
+            alertDialog = CustomAlertDialogBuilder.customDialogBox(
+                    this,
+                    R.drawable.error_outline,
+                    getString(R.string.network_alert_message),
+                    () -> {
+                        Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                        startActivity(intent);
                     });
         }
     }
