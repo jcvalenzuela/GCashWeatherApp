@@ -1,6 +1,8 @@
 package com.jcvalenzuela.gcashweatherapp.data.repository.local;
 
 
+import androidx.lifecycle.LiveData;
+
 import com.jcvalenzuela.gcashweatherapp.data.local.db.dao.AppDatabase;
 import com.jcvalenzuela.gcashweatherapp.data.model.entity.LoginEntity;
 
@@ -30,5 +32,10 @@ public class LocalDataRepositoryImpl implements LocalDataRepository {
     @Override
     public boolean isUserAccountExists(String user) {
         return appDatabase.getLoginDao().isUserAccountExists(user);
+    }
+
+    @Override
+    public LiveData<LoginEntity> loginLiveData(String user, String password) {
+        return appDatabase.getLoginDao().loginLiveData(user, password);
     }
 }
