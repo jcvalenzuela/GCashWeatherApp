@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
+import com.jcvalenzuela.gcashweatherapp.R;
 import com.jcvalenzuela.gcashweatherapp.data.model.response.forecast_weather.List;
 import com.jcvalenzuela.gcashweatherapp.databinding.ItemWeatherListBinding;
 import com.jcvalenzuela.gcashweatherapp.presentation.base.BaseAdapter;
@@ -65,7 +66,7 @@ public class CurrentWeatherAdapter extends BaseAdapter<List> {
         public void onBind(int position) {
             final java.util.List<List> list = get();
             double celsius = Math.round(list.get(position).getMain().getTemp() - 273.15);
-            String temp = String.format(Locale.getDefault(), "%.0f", celsius);
+            String temp = String.format(Locale.getDefault(), "%.0f", celsius) + context.getString(R.string.temp_symbol);
             double minCel = Math.round(list.get(position).getMain().getTempMin() - 273.15);
             String tempMin = String.format(Locale.getDefault(), "%.0f", minCel);
             double maxCel = Math.round(list.get(position).getMain().getTempMax() - 273.15);
@@ -80,8 +81,8 @@ public class CurrentWeatherAdapter extends BaseAdapter<List> {
             }
             itemWeatherListBinding.setItemHolder(new ItemHolder(list.get(position), this));
             itemWeatherListBinding.textViewDay.setText(convertToDate(list.get(position).getDt()) +"\n" + convertToTime(list.get(position).getDt()));
-            itemWeatherListBinding.textViewTemperature.setText(temp + "°C" + "\nMin/Max \n" + tempMin + "/" + tempMax + "°C");
-//            itemWeatherListBinding.textViewMinMax.setText("Min/Max \n" + tempMin + "/" + tempMax + "°C");
+            itemWeatherListBinding.textViewTemperature.setText(temp);
+            itemWeatherListBinding.textViewMinMax.setText("Min/Max \n" + tempMin + "/" + tempMax + context.getString(R.string.temp_symbol));
             itemWeatherListBinding.textViewStatus.setText(description);
             itemWeatherListBinding.imageView.setImageDrawable(context.getDrawable(getWeatherStatus(weatherId)));
             itemWeatherListBinding.executePendingBindings();

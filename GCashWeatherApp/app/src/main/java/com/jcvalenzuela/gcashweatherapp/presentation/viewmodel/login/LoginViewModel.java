@@ -61,7 +61,7 @@ public class LoginViewModel extends BaseViewModel implements LoginHelper {
                 ""
         );
 
-        if (isStringEmpty(usernameLogin.getValue()) && isStringEmpty(passwordLogin.getValue())) {
+        if (isStringEmpty(usernameLogin.getValue()) || isStringEmpty(passwordLogin.getValue())) {
             liveLoginDataMutableLiveData.setValue(
                     new LiveLoginData(
                             LoginEnumState.MISSING_FIELDS,
@@ -83,19 +83,30 @@ public class LoginViewModel extends BaseViewModel implements LoginHelper {
             return;
         }
 
-        getMainDataRepository()
+        boolean isUserHasAccess = getMainDataRepository()
                 .getLocalDataRepository()
-                .loginLiveData(
+                .isUserLogin(
                         usernameLogin.getValue(),
                         passwordLogin.getValue()
                 );
 
-        liveLoginDataMutableLiveData.setValue(
-                new LiveLoginData(
-                        LoginEnumState.LOGIN_SUCCESSFUL,
-                        "Login Success"
-                )
-        );
+        if (isUserHasAccess) {
+            liveLoginDataMutableLiveData.setValue(
+                    new LiveLoginData(
+                            LoginEnumState.LOGIN_SUCCESSFUL,
+                            "Login Failed"
+                    )
+            );
+        } else {
+            liveLoginDataMutableLiveData.setValue(
+                    new LiveLoginData(
+                            LoginEnumState.LOGIN_FAILED,
+                            "Login Success"
+                    )
+            );
+        }
+
+
     }
 
     @Override

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="itemHolder"
             type="com.jcvalenzuela.gcashweatherapp.presentation.adapter.ItemHolder" />
@@ -11,8 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@android:color/transparent"
+        android:layout_height="120dp"
         android:fitsSystemWindows="true">
 
 
@@ -20,9 +20,9 @@
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cardCornerRadius="10dp"
             android:layout_margin="4dp"
-            app:cardBackgroundColor="@android:color/transparent"
+            app:cardBackgroundColor="@color/card_view_color"
+            app:cardCornerRadius="10dp"
             app:cardElevation="0dp"
             app:layout_constraintBottom_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,77 +37,67 @@
 
                 <ImageView
                     android:id="@+id/imageView"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/textViewStatus"
                     app:layout_constraintStart_toEndOf="@+id/textViewDay"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/cloud_sun" />
 
-                <TextView
-                    android:id="@+id/textViewDay"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/time"
-                    android:textColor="@color/white"
-                    android:textSize="13sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textViewTemperature"
+                    <TextView
+                        android:id="@+id/textViewDay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="@string/time"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/textViewStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="@string/weather_status"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/temperature_celsius"
-                    android:textColor="@color/white"
-                    android:textSize="13sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textViewMinMax"
-                    app:layout_constraintStart_toEndOf="@+id/textViewStatus"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textViewStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/weather_status"
-                    android:textColor="@color/white"
-                    android:textSize="13sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textViewDay"
-                    app:layout_constraintEnd_toStartOf="@+id/textViewTemperature"
-                    app:layout_constraintStart_toEndOf="@+id/imageView"
-                    app:layout_constraintTop_toTopOf="@+id/textViewTemperature" />
+                    <TextView
+                        android:id="@+id/textViewTemperature"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="@string/temperature_celsius"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/textViewMinMax"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:layout_marginStart="5dp"-->
-<!--                    android:layout_marginEnd="5dp"-->
-<!--                    android:text="@string/pressure"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="13sp"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toEndOf="@+id/textViewTemperature"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+                    <TextView
+                        android:id="@+id/textViewMinMax"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="@string/pressure"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

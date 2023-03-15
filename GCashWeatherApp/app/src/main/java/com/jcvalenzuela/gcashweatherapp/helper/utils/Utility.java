@@ -12,6 +12,7 @@ import com.jcvalenzuela.gcashweatherapp.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -134,25 +135,11 @@ public class Utility {
         }
     }
 
-    public static int isDayTime(int id, int sunset) {
-        if (id / 100 == 2) {
-            return R.drawable.gradient_background_rain;
-        } else if (id / 100 == 3) {
-            return R.drawable.gradient_background_rain;
-        } else if (id / 100 == 5) {
-            return R.drawable.gradient_background_rain;
-        } else if (id / 100 == 8) {
-            if (isSunset(sunset)) {
-                return R.drawable.gradient_background_night;
-            } else {
-                return R.drawable.gradient_background_day;
-            }
-        } else if (id == 800 || id == 801 || id == 803) {
-            if (isSunset(sunset)) {
-                return R.drawable.gradient_background_night;
-            } else {
-                return R.drawable.gradient_background_day;
-            }
+    public static int isDayTime() {
+        LocalTime currentTime = LocalTime.now();
+        LocalTime compareNightTime = LocalTime.of(17, 59, 59);
+        if (currentTime.isAfter(compareNightTime)) {
+            return R.drawable.gradient_background_night;
         } else {
             return R.drawable.gradient_background_day;
         }
@@ -173,6 +160,18 @@ public class Utility {
             Log.e("TAG", "Cloud Sun");
             return R.drawable.cloud_sun;
         }
+    }
+
+    public static int setWeatherIconByTime() {
+        LocalTime currentTime = LocalTime.now();
+        LocalTime compareNightTime = LocalTime.of(17, 59, 59);
+        if (currentTime.isAfter(compareNightTime)) {
+            return R.drawable.cresent_moon;
+        } else {
+            return R.drawable.sunny;
+        }
+
+
     }
 
 }

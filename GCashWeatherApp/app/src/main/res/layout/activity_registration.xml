@@ -10,6 +10,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/gradient_background_night"
@@ -38,13 +39,12 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/app_registration" />
+            app:layout_constraintTop_toTopOf="@+id/guideline2"
+            app:srcCompat="@drawable/sign_up" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"

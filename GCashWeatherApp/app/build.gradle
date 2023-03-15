@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.jcvalenzuela.gcashweatherapp"
-        minSdk 24
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -79,6 +79,8 @@ dependencies {
     implementation 'com.google.dagger:dagger-android-support:2.26'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.26'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.26'
+
+    implementation 'com.tbuonomo:dotsindicator:4.3'
 
 
 

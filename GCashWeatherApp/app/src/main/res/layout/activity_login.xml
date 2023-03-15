@@ -10,6 +10,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/gradient_background_night"
@@ -24,12 +25,13 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline"
-            app:srcCompat="@drawable/lock_person" />
+            app:srcCompat="@drawable/lock_icon" />
 
         <LinearLayout
             android:id="@+id/linearLayout"

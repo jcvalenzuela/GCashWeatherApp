@@ -1,27 +1,32 @@
 <resources>
     <string name="app_name">GCashWeatherApp</string>
     <string name="user_name">Username</string>
-    <string name="welcome">Welcome to GCash \nWeather App</string>
+    <string name="welcome">Welcome to \nGCash \nWeather App</string>
     <string name="login">Login</string>
     <string name="sign_up">SignUp</string>
     <string name="password">Password</string>
     <string name="re_password">Confirm Password</string>
     <string name="email">Email</string>
-    <string name="forget_pass">Forget Password?</string>
+    <string name="forget_pass">Forgot Password?</string>
     <string name="no_account_register">Don\'t have an account? <b><u>SignUp</u></b></string>
     <string name="register">Register</string>
     <string name="alert_message">Lorem Ipsum</string>
     <string name="temperature_celsius">0°c</string>
     <string name="country">Philippines</string>
-    <string name="city">Lipa City, Batangas</string>
+    <string name="city">Lipa City</string>
     <string name="current_date">March 12, 2023</string>
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset</string>
-    <string name="cur_weather">Forecast Weather</string>
-    <string name="fetch_weather">Fetch Weather</string>
+    <string name="humidity">100</string>
+    <string name="wind_velocity">"deg":43.0,"gust":2.56,"speed":1.45</string>
+    <string name="cur_weather">Current Weather</string>
+    <string name="fetch_weather">Forecast Weather</string>
     <string name="time">Time</string>
+    <string name="percentage">%</string>
     <string name="weather_status">Cloudy</string>
     <string name="pressure">Min and Max</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="temp_symbol">°C</string>
 </resources>
